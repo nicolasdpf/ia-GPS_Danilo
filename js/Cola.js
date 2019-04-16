@@ -1,3 +1,10 @@
+class Node {
+    constructor(value){
+        this.value = value;
+        this.next = null;
+    }
+}
+
 class Cola{
     constructor(){
         this.first = null;
@@ -16,9 +23,16 @@ class Cola{
         }
         return ++this.size;
     }
+
     dequeue(val){
         if(!this.first) return null;
-        var tem
+        var temp = this.first;
+        if(this.first === this.last){
+            this.last = null;
+        }
+        this.first = this.first.next;
+        this.size--;
+        return temp.value;
     }
-
 }
+
