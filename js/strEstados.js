@@ -1,4 +1,4 @@
-/**
+]/**
  * StrEstados : estructuras de datos para los estados del problema: 
  * Capitales de colombia, ubicacion latitud y longitud en decimales simples
  * y ciudades cercanas 

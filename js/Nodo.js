@@ -1,6 +1,10 @@
 class Nodo{
-    constructor(data){
+    constructor(data, padre, costo, profundidad){
         this.data = data;
+        this.padre = padre;
+        this.siguiente = null;
+        this.costo = costo;
+        this.profundidad = profundidad;
     }
 
     destruir(){
