@@ -1,38 +1,43 @@
-class Node {
+class myNode{
     constructor(value){
         this.value = value;
         this.next = null;
     }
 }
 
-class Cola{
+class Queue{
     constructor(){
-        this.first = null;
-        this.last = null;
-        this.size = 0;
+        this.head = null
+        this.tail = null
+        this.size = 0
+    } 
+    isEmpty(){
+        return this.front  === null
     }
 
-    enqueue(val){
-        var newNode = new Node(val);
-        if(!this.first){
-            this.first = newNode;
-            this.last = newNode;
+    enqueue(value){
+        var node = new myNode(value)
+        if(this.isEmpty()){
+            this.head = node
+            this.tail = node
+        }else{
+            this.tail.next = node
+            this.tail = node
+        }
+        this.size++
+    }
+
+    dequeue(){
+        if(this.head === null){
+            return null
+        }
+        var result = this.front.data
+        if(this.front === this.tail){
+            this.head = null
+            this.tail = null
         } else {
-            this.last.next = newNode;
-            this.last = newNode;
+            this.head = this.head.next
         }
-        return ++this.size;
-    }
-
-    dequeue(val){
-        if(!this.first) return null;
-        var temp = this.first;
-        if(this.first === this.last){
-            this.last = null;
-        }
-        this.first = this.first.next;
-        this.size--;
-        return temp.value;
+        return result
     }
 }
-
