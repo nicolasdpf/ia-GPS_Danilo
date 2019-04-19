@@ -9,14 +9,13 @@ class Queue{
     constructor(){
         this.head = null
         this.tail = null
-        this.size = 0
     } 
     isEmpty(){
-        return this.front  === null
+        return this.head  === null
     }
 
     enqueue(value){
-        var node = new myNode(value)
+        let node = new myNode(value)
         if(this.isEmpty()){
             this.head = node
             this.tail = node
@@ -24,15 +23,14 @@ class Queue{
             this.tail.next = node
             this.tail = node
         }
-        this.size++
     }
 
     dequeue(){
-        if(this.head === null){
+        if(this.isEmpty()){
             return null
         }
-        var result = this.front.data
-        if(this.front === this.tail){
+        var result = this.head.data
+        if(this.head === this.tail){
             this.head = null
             this.tail = null
         } else {
@@ -41,3 +39,15 @@ class Queue{
         return result
     }
 }
+
+let qq = new Queue()
+
+qq.enqueue(Estados[1].ciudad)
+qq.enqueue(Estados[2].ciudad)
+qq.enqueue(Estados[3].ciudad)
+qq.enqueue(Estados[4].ciudad)
+qq.enqueue(Estados[5].ciudad)
+
+console.log(qq)
+
+console.log(qq.dequeue())
