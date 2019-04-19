@@ -48,6 +48,6 @@ qq.enqueue(Estados[3].ciudad)
 qq.enqueue(Estados[4].ciudad)
 qq.enqueue(Estados[5].ciudad)
 
-console.log(qq)
+//console.log(qq)
 
-console.log(qq.dequeue())
+//console.log(qq.dequeue())
