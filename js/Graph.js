@@ -1,56 +1,3 @@
-// class Graph{
-//     constructor(){
-//         this.edges = {}
-//     }
-
-//     addNode(node){
-//         let nodes = new Array()
-//         if (!this.edges[node]) {
-//             this.edges[node] =[]
-//             //nodes.push(this.edges[node])
-//         }
-//     }
-
-//     addBidirectionalEdge(n1, n2){
-//         this.addEdge(n1,n2)
-//         this.addEdge(n2, n1)
-//     }
-//     addEdge(start, end){
-//         this.edges[start].push(end)
-//     }
-
-//     getNeighbors(start){
-//         return this.edges[start]
-//     }
-// }
-
-// const gg = new Graph()
-// gg.addNode("Washington")
-// gg.addNode("Oregon")
-// gg.addNode("Idaho")
-// gg.addNode("Nevada")
-// gg.addNode("California")
-
-// gg.addBidirectionalEdge("Washington", "Oregon")
-// gg.addBidirectionalEdge("Washington", "Idaho")
-// gg.addBidirectionalEdge("Oregon", "Idaho")
-// gg.addBidirectionalEdge("Oregon", "California")
-// gg.addBidirectionalEdge("Oregon", "Nevada")
-// gg.addBidirectionalEdge("California", "Nevada")
-
-// console.log(gg.getNeighbors("Oregon"))
-
-
-// let departments = new Graph()
-
-// for(let i = 0; i < Estados.length; i++){
-//     departments.addNode(Estados[i].ciudad)
-//     for(let j = 0; j<Estados[i].vecinos.length; j++){
-//         departments.addBidirectionalEdge(Estados[i].ciudad, Estados[Estados[i].vecinos[j].ciudad].ciudad)
-//     }
-// }
-
-
 class Graph{
     constructor(){
         this.dataList = {}
@@ -75,7 +22,13 @@ class Graph{
             v => v !== vertex1
         )
     }
-
+    removeVertex(vertex){
+        while(this.adjacencyList[vertex].length){
+            const adjacentVertex = this.adjacencyList[vertex].pop();
+            this.removeEdge(vertex, adjacentVertex);
+        }
+        delete this.adjacencyList[vertex]
+    }
 
     depthFirstRecursive(start){
         const result = []
@@ -95,34 +48,116 @@ class Graph{
         console.log(visited)
         return result
     }
+    depthFirstIterative(start){ //La funcion acepta un nodo inicial
+        const stack = [start]; //Pila que ayuda a mantener seguimiento de los vertices
+        const result = [];//Lista que guarda el resultado final
+        const visited = {};//Objeto que guarda los vertices visitados
+        let currentVertex; //Variable que guarda el vertice actual
 
+        visited[start] = true; //Marca vertice inicial como visitado
 
-    depthFirstBusqueda(inicio, goal){
-        const result = new Queue()
-        const visitado = {}
-        const dataList = this.dataList;
-        let finBusqueda = false;
-
-        //if(dataList[inicio] === dataList[goal]) finBusqueda = true;
-
-        do {
-            (function dfs(vertex){
-                result.enqueue(vertex)
-                visitado[vertex] = true
-                dataList[vertex].forEach(vecino => {
-                    if(!visitado[vecino]){
-                        if(visitado[vecino] === goal){
-                            finBusqueda = true;
-                        }else{
-                            return dfs(vecino); 
-                        }
-                    }
-                });
-            })(inicio);
-        } while (!finBusqueda);
-        return result
+        while(stack.length){ //Mientras en la pila existan datos
+            console.log(stack)
+            currentVertex = stack.pop(); //Sacar el siguiente Vertice de la pila
+            console.log(`current: ${currentVertex}`)
+            result.push(currentVertex);
+            console.log(`resultado: ${result}, `)
+            console.log()
+            this.dataList[currentVertex].forEach(neighbor => {
+                console.log(`Vecino: ${neighbor}`)
+                if(!visited[neighbor]){
+                    visited[neighbor] = true;
+                    console.log(visited[neighbor])
+                    stack.push(neighbor)
+               } 
+            });
+        }
+        console.log(visited)
+        return result;
     }
 
+    busquedaDFSIterativa(origen, destino){
+        const stack = [origen];
+        const result = [];
+        const visited = {};
+        let currentVertex, profundidad = 0;
+
+        visited[origen] = true;
+        if(origen === destino){
+            console.log(`Origen es el mismo a destino!`);
+            return result;
+        }
+        while(stack.length){ //Mientras haya datos en la pila
+            console.log(`Profundidad = ${profundidad}`);
+            currentVertex = stack.pop();
+            result.push(currentVertex);
+            if(currentVertex === destino){
+                return result;
+            }
+            this.dataList[currentVertex].forEach(vecino => {
+                console.log(this.dataList[currentVertex]);
+                if(!visited[vecino]){ //Si mi vecino no ha sido visitado
+                    visited[vecino] = true;
+                    stack.push(vecino);                            
+                }
+            });
+            profundidad += 1;
+        }
+        return result;
+    }
+/*
+    dfs(start, final){
+        const abierto = [start];
+        const cerradoResul = [];
+        const cerrado = {};
+        const N;
+
+        let P = 6, profundidad = 0;
+        while(abierto.length){
+            N = abierto.shift()
+            if(!cerrado[N] && profundidad <= P){
+                cerrado.push(N);
+                this.dataList[N].forEach(vecino => {
+                    if(dataList[N].length && vecino != final){
+                        abierto.unshift(vecino);
+                    }
+                })
+            }
+            profundidad += 1;
+        }
+        
+    }
+    */
+    busquedaBFSIterativa(start, origen){
+        const queue = [start]
+        console.log(queue)
+        const result = [];
+        const visited = {};
+        let currentVertex;
+        visited[start] = true;
+
+        if( start === origen ) {
+            console.log("Origen y destino son iguales");
+            return null
+        }
+
+        while(queue.length){
+            currentVertex = queue.shift();
+            console.log(currentVertex)
+            result.push(currentVertex);
+            if(currentVertex === origen){
+                return result
+            }
+            this.dataList[currentVertex].forEach( neighbor =>{
+                if(!visited[neighbor]){
+                    visited[neighbor] = true;
+                    queue.push(neighbor);
+                }
+            }
+            );
+        }
+        return result;
+    }
 
     breadthFirst(start){
         const queue = [start];

@@ -1,54 +1,31 @@
-class StackNode{
-    constructor(data, next)
-    {
-        this.data = data
-        this.next = next
-    }
-}
-
-class LinkedStack{
+class Stack{
     constructor(){
-        this.top = null
-        this.size = 0
+        this.first = null;
+        this.last = null;
+        this.size = 0;
     }
-
-    isEmpty()
-    {
-        return this.top === null
-    }
-
-    lenght(){
-        return this.size
-    }
-
-    push(value){
-        let node  = new StackNode(value)
-        node.next = this.top
-        this.top = node
-
-        this.size ++
+    push (val){
+        var newNode = new Nodo(val)
+        if (!this.first) {
+            this.first = newNode;
+            this.last = newNode;
+        } else {
+            var temp = this.first;
+            this.first = newNode;
+            this.first.next = temp;
+        }
+        console.log(newNode.next)
+        return ++this.size;
     }
 
     pop(){
-        let result = this.top
-        this.top = this.top.next
-
-        this.size--
-        return result.data
+        if(!this.first) return null
+        var temp = this.first;
+        if (this.fist === this.last) {
+            this.last = null;
+        }
+        this.first = this.first.next;
+        this.size--;
+        return temp.value;
     }
 }
-
-// let ss = new LinkedStack()
-// ss.push(55)
-// ss.push(44)
-// ss.push(33)
-// ss.push(22)
-// ss.push(11)
-
-// console.log(ss)
-
-// while(!ss.isEmpty()){
-//     let value = ss.pop()
-//     console.log(value)
-// }
-
