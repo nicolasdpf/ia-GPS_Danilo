@@ -17,4 +17,7 @@ class Nodo {
         this.value = value;
         this.next = null;
     }
+
+
+    
 } 
