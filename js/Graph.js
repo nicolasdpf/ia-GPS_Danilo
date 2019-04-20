@@ -92,8 +92,38 @@ class Graph{
                 }
             });
         })(start);
+        console.log(visited)
         return result
     }
+
+
+    depthFirstBusqueda(inicio, goal){
+        const result = new Queue()
+        const visitado = {}
+        const dataList = this.dataList;
+        let finBusqueda = false;
+
+        //if(dataList[inicio] === dataList[goal]) finBusqueda = true;
+
+        do {
+            (function dfs(vertex){
+                result.enqueue(vertex)
+                visitado[vertex] = true
+                dataList[vertex].forEach(vecino => {
+                    if(!visitado[vecino]){
+                        if(visitado[vecino] === goal){
+                            finBusqueda = true;
+                        }else{
+                            return dfs(vecino); 
+                        }
+                    }
+                });
+            })(inicio);
+        } while (!finBusqueda);
+        return result
+    }
+
+
     breadthFirst(start){
         const queue = [start];
         const result = [];

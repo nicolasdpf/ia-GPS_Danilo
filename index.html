@@ -37,9 +37,11 @@
               departamentos.addEdge(Estados[i].ciudad, vecino)
           }
       }
+      let costo =0
 
       console.log(departamentos.depthFirstRecursive("Medellin"))
-      console.log(departamentos.breadthFirst("Medellin"))
+      // console.log(departamentos.breadthFirst("Medellin"))
+      console.log(departamentos.depthFirstBusqueda("Medellin", "Bogota"))
       </script>
 
   </body>
