@@ -48,7 +48,6 @@
     <script src="js/main.js"></script>
     
     <script>
-      
       labels("origen");
       labels("destino");  
 
@@ -60,29 +59,28 @@
       let final = document.getElementById("destino");
       final = final.options[final.selectedIndex].value;
       let op = sele.options[sele.selectedIndex].value;
-
+      let result;
 
       if (op === "Anchura") {
           
         result = capitales.busquedaBFSIterativa(inicial, final);
         console.log(result);
-        displayRoute(result);
-        /*  
-        if (ruta.pasos != null) {
-          trazarRuta(ruta.pasos, ruta.costo, op);
-        }*/
+        drawPolyLine(result);
+        //displayRoute(result);
+        
       }
       if (op === "ProfundidadIterativa") {
-        ruta = voraz(inicial, final);
-        if (ruta.pasos != null) {
-            trazarRuta(ruta.pasos, ruta.costo, op);
-        }
+        result = capitales.busquedaDFSIterativa(inicial, final);
+        console.log(result);
+        drawPolyLine(result);
+        //displayRoute(result);
+        
       }
       if (op === "ProfundidadRecursividad") {
-        ruta = voraz(inicial, final);
-        if (ruta.pasos != null) {
-            trazarRuta(ruta.pasos, ruta.costo, op);
-        }
+        result = capitales.busquedaDFSRecursiva(inicial, final);
+        console.log(result);
+        drawPolyLine(result);
+        //displayRoute(result);
     }
       sele.selectedIndex = 0;
     }

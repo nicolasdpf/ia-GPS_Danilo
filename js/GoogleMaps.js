@@ -253,38 +253,60 @@ function initMap() {
     //Associate the styled map with the MapTypeId and set it to display.
     map.mapTypes.set('styled_map', styledMapType);
     map.setMapTypeId('styled_map');
-    /*var myTrip = [Estados[0].ubicacion, Estados[2].ubicacion];
-    var flightPath = new google.maps.Polyline({
-        path:myTrip,
-        strokeColor:"#0000FF",
-        strokeOpacity:0.8,
-        strokeWeight:2
-      });
-    flightPath.setMap(map);   
-    */
-
     dirRender = new google.maps.DirectionsRenderer({
         map: map
     });
     dirServ = new google.maps.DirectionsService();
-    
 }
 
+
+function drawPolyLine(result){
+  let resultEstados = [];
+    //console.log(Estados[result[0]]);
+    for (let index = 0; index < result.length; index++) {
+      for (let ciudad = 0; ciudad < Estados.length; ciudad++) {
+        if(Estados[ciudad].ciudad === result[index]){
+          resultEstados.push(Estados[ciudad]);
+        }
+    }
+  }
+  var myTrip = [];
+  for (let index = 0; index < resultEstados.length; index++) {
+    myTrip.push(resultEstados[index].ubicacion);
+  }
+  var flightPath = new google.maps.Polyline({
+    path:myTrip,
+    strokeColor:"#0000FF",
+    strokeOpacity:0.8,
+    strokeWeight:2
+  });
+  flightPath.setMap(map); 
+  //return flightPath;
+}
 function displayRoute(result){
     let point = []
-    console.log(Estados[result[0]]);
-    // for (let index = 0; index < result.length; index++) {
-    //     point.push({location: Estados[result.indexOf(result[i])].ubicacion, stopover: true});        
-    // }
-    // let camino = {
-    //     destination: Estados[result.indexOf(result[pasos.length - 1])].ubicacion,
-    //     origin: Estados[result.indexOf(result[0])].ubicacion,
-    //     travelMode: 'DRIVING',
-    //     waypoints: puntos
-    // };
-    // dirServ.route(camino, function(response, status) {
-    //     if (status == 'OK') {
-    //         dirRender.setDirections(response);
-    //     }
-    // });
+    let resultEstados = [];
+    //console.log(Estados[result[0]]);
+    for (let index = 0; index < result.length; index++) {
+      for (let ciudad = 0; ciudad < Estados.length; ciudad++) {
+        if(Estados[ciudad].ciudad === result[index]){
+          resultEstados.push(Estados[ciudad]);
+        }
+      }
+    }
+    //console.log(resultEstados)
+    for (let index = 1; index < resultEstados.length - 1; index++) {
+      point.push({location: resultEstados[index].ubicacion, stopover: true})
+    }
+    let camino = {
+      destination: resultEstados[resultEstados.length - 1].ubicacion,
+      origin: resultEstados[0].ubicacion,
+        travelMode: 'DRIVING',
+        waypoints: point
+    };
+    dirServ.route(camino, function(response, status) {
+        if (status == 'OK') {
+            dirRender.setDirections(response);
+        }
+    });
 }

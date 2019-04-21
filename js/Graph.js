@@ -48,7 +48,6 @@ class Graph{
         console.log(visited)
         return result
     }
-
     busquedaDFSRecursiva(origen, destino){
         const result = [];
         const visited = {};
@@ -115,7 +114,7 @@ class Graph{
             return result;
         }
         while(stack.length){ //Mientras haya datos en la pila
-            console.log(` Profundidad = ${profundidad}`);
+            console.log(`Profundidad = ${profundidad}`);
             currentVertex = stack.pop();
             result.push(currentVertex);
             if(currentVertex === destino){
