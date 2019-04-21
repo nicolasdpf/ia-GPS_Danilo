@@ -259,6 +259,7 @@ function initMap() {
     dirServ = new google.maps.DirectionsService();
 }
 
+
 function drawPolyLine(result){
   let resultEstados = [];
     //console.log(Estados[result[0]]);
