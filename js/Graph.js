@@ -115,7 +115,7 @@ class Graph{
             return result;
         }
         while(stack.length){ //Mientras haya datos en la pila
-            console.log(`Profundidad = ${profundidad}`);
+            console.log(` Profundidad = ${profundidad}`);
             currentVertex = stack.pop();
             result.push(currentVertex);
             if(currentVertex === destino){
@@ -132,9 +132,9 @@ class Graph{
         }
         return result;
     }
+
     busquedaBFSIterativa(start, origen){
         const queue = [start]
-        console.log(queue)
         const result = [];
         const visited = {};
         let currentVertex;
@@ -147,7 +147,7 @@ class Graph{
 
         while(queue.length){
             currentVertex = queue.shift();
-            console.log(currentVertex)
+            
             result.push(currentVertex);
             if(currentVertex === origen){
                 return result

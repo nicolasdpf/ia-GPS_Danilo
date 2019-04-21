@@ -1,12 +1,35 @@
-/**
- * Establecemos funciones para correr el mapa por pantalla
- */
 
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: Estados[13].ubicacion.lat,lng: Estados[13].ubicacion.long},
-    //center: {lat: -72.1762635, lng: 4.539517},
-    zoom: 6
-  });
+
+/**
+ * Con estas primeras lineas, inicializamos el grafo con todas las capitales como vertices/nodos
+ * y sus respectivas aristas con las ciudades vecinas
+*/
+let capitales = new Graph()
+
+for(var i = 0; i < Estados.length ; i++){
+    capitales.addVertex(Estados[i].ciudad)
+    for(var j = 0; j < Estados[i].vecinos.length; j++){
+        var vecino = Estados[Estados[i].vecinos[j].ciudad].ciudad;
+        capitales.addEdge(Estados[i].ciudad, vecino);
+    }  
 }
+
+let labels = (lista) =>{
+  let inicial = document.getElementById(lista);
+  console.log(inicial);
+  let option;
+  let texto;
+  for (let i = 0; i < Estados.length; i++) {
+      option = document.createElement("option");
+      option.value = Estados[i].ciudad;
+      texto = document.createTextNode("" + i + " " + Estados[i].ciudad);
+      option.appendChild(texto);
+      inicial.appendChild(option);
+  }
+}
+
+
+
+
+
+

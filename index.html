@@ -16,7 +16,7 @@
       </div>
       <div class="formulario">
         <div id="op1">
-          <label>Ciudad Origen</label> <select id="inicial"></select>
+          <label>Ciudad Origen</label> <select id="origen"></select>
         </div>
         <div id="op2">
             <label>Ciudad Destino</label> <select id="destino"></select>
@@ -32,8 +32,11 @@
               <option value="ProfundidadRecursividad">Profundidad por Recursividad</option>
             </select>
         </div>
+
+        <section class="resultado"></section>
     </div>
     <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA492l51r5sWbbTWH36xzu8gW2G1SfcKcA&callback=initMap&libraries=drawing" async defer></script>
     <script type="text/javascript" src="js/strEstados.js"></script>
     <script src="js/Nodo.js"></script>
     <script src="js/Queue.js"></script>
@@ -41,48 +44,48 @@
     <script src="js/Stack.js"></script>
     <script src="js/Tree.js"></script>
     <script src="js/Graph.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA492l51r5sWbbTWH36xzu8gW2G1SfcKcA&callback=initMap"
-    async defer></script>
+    <script src="js/GoogleMaps.js"></script>i
     <script src="js/main.js"></script>
     
     <script>
-      /**
-       * Con estas primeras lineas, inicializamos el grafo con todas las capitales como vertices/nodos
-       * y sus respectivas aristas con las ciudades vecinas
-      */
-      let capitales = new Graph()
+      
+      labels("origen");
+      labels("destino");  
 
-      for(var i = 0; i < Estados.length ; i++){
-          capitales.addVertex(Estados[i].ciudad)
-          for(var j = 0; j < Estados[i].vecinos.length; j++){
-              var vecino = Estados[Estados[i].vecinos[j].ciudad].ciudad
-              capitales.addEdge(Estados[i].ciudad, vecino)
-          }  
+      function realizar(){
+      let ruta;
+      let sele = document.getElementById("Busqueda");
+      let inicial = document.getElementById("origen");
+      inicial = inicial.options[inicial.selectedIndex].value;
+      let final = document.getElementById("destino");
+      final = final.options[final.selectedIndex].value;
+      let op = sele.options[sele.selectedIndex].value;
+
+
+      if (op === "Anchura") {
+          
+        result = capitales.busquedaBFSIterativa(inicial, final);
+        console.log(result);
+        /*  
+        if (ruta.pasos != null) {
+          trazarRuta(ruta.pasos, ruta.costo, op);
+        }*/
       }
-
-
-
-
-      let labels = (lista) =>{
-        let inicial = document.getElementById(lista);
-        let option;
-        let texto;
-        for (let i = 0; i < Estados.length; i++) {
-            option = document.createElement("option");
-            option.value = i;
-            texto = document.createTextNode("" + i + " " + Estados[i].ciudad);
-            option.appendChild(texto);
-            inicial.appendChild(option);
+      if (op === "ProfundidadIterativa") {
+        ruta = voraz(inicial, final);
+        if (ruta.pasos != null) {
+            trazarRuta(ruta.pasos, ruta.costo, op);
         }
       }
-      labels("inicial");
-      labels("destino");
-      
-      function realizar(){
-        let 
-      }
+      if (op === "ProfundidadRecursividad") {
+        ruta = voraz(inicial, final);
+        if (ruta.pasos != null) {
+            trazarRuta(ruta.pasos, ruta.costo, op);
+        }
+    }
+      sele.selectedIndex = 0;
+    }
 
-      </script>
-
+    </script>
   </body>
 </html>
