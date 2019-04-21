@@ -270,24 +270,6 @@ function initMap() {
     
 }
 
-// function trazarRuta(pasos) {
-//     let puntos = new Array();
-//     for (let i = 1; i < pasos.length - 1; i++) {
-//         puntos.push({ location: Estados[pasos[i]].ubicacion, stopover: true });
-//     }
-//     let camino = {
-//         destination: Estados[pasos[pasos.length - 1]].ubicacion,
-//         origin: Estados[pasos[0]].ubicacion,
-//         travelMode: 'DRIVING',
-//         waypoints: puntos
-//     };
-//     dirServ.route(camino, function(response, status) {
-//         if (status == 'OK') {
-//             dirRender.setDirections(response);
-//         }
-//     });
-// }
-
 function displayRoute(result){
     let point = []
     console.log(Estados[result[0]]);
