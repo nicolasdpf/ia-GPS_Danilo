@@ -48,12 +48,39 @@ class Graph{
         console.log(visited)
         return result
     }
+
+    busquedaDFSRecursiva(origen, destino){
+        const result = [];
+        const visited = {};
+        const dataList = this.dataList;
+
+        if(origen === destino){
+            console.log("Destino y origen son iguales!");
+            return result;
+        }
+        (function dfs(vertex){
+            if(!vertex) return null
+            visited[vertex] = true;
+            result.push(vertex);
+            while(vertex !== destino){
+                console.log("Hola ya lo encontré")
+                return result;
+            }   
+            dataList[vertex].forEach(neighbor =>{
+                if(!visited[neighbor]){
+                    return dfs(neighbor);
+                }
+            });
+        })(origen);
+
+        return result;
+    }
     depthFirstIterative(start){ //La funcion acepta un nodo inicial
         const stack = [start]; //Pila que ayuda a mantener seguimiento de los vertices
         const result = [];//Lista que guarda el resultado final
         const visited = {};//Objeto que guarda los vertices visitados
         let currentVertex; //Variable que guarda el vertice actual
-
+ 
         visited[start] = true; //Marca vertice inicial como visitado
 
         while(stack.length){ //Mientras en la pila existan datos
@@ -105,29 +132,6 @@ class Graph{
         }
         return result;
     }
-/*
-    dfs(start, final){
-        const abierto = [start];
-        const cerradoResul = [];
-        const cerrado = {};
-        const N;
-
-        let P = 6, profundidad = 0;
-        while(abierto.length){
-            N = abierto.shift()
-            if(!cerrado[N] && profundidad <= P){
-                cerrado.push(N);
-                this.dataList[N].forEach(vecino => {
-                    if(dataList[N].length && vecino != final){
-                        abierto.unshift(vecino);
-                    }
-                })
-            }
-            profundidad += 1;
-        }
-        
-    }
-    */
     busquedaBFSIterativa(start, origen){
         const queue = [start]
         console.log(queue)
