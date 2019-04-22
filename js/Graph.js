@@ -41,12 +41,12 @@ class Graph{
             result.push(vertex)
             dataList[vertex].forEach(neighbor => {
                 if(!visited[neighbor]){
-                    return dfs(neighbor)
+                    return dfs(neighbor);
                 }
             });
         })(start);
-        console.log(visited)
-        return result
+        console.log(visited);
+        return result;
     }
     busquedaDFSRecursiva(origen, destino){
         const result = [];
@@ -57,20 +57,25 @@ class Graph{
             console.log("Destino y origen son iguales!");
             return result;
         }
-        (function dfs(vertex){
-            if(!vertex) return null
+        (function dfs(vertex, final){
+            if(!vertex) return null;
+
             visited[vertex] = true;
             result.push(vertex);
-            while(vertex !== destino){
-                console.log("Hola ya lo encontré")
+
+            console.log(result);
+            console.log("Final,", final);
+            /*while(vertex === final){
+                console.log("Hola ya lo encontré");
                 return result;
             }   
+            */
             dataList[vertex].forEach(neighbor =>{
                 if(!visited[neighbor]){
-                    return dfs(neighbor);
+                    dfs(neighbor, final);
                 }
             });
-        })(origen);
+        })(origen, destino);
 
         return result;
     }
@@ -133,7 +138,7 @@ class Graph{
     }
 
     busquedaBFSIterativa(start, origen){
-        const queue = [start]
+        const queue = [start];
         const result = [];
         const visited = {};
         let currentVertex;
@@ -184,3 +189,14 @@ class Graph{
         return result;
     }
 }
+
+let capitales2 = new Graph()
+
+for(var i = 0; i < Estados.length ; i++){
+    capitales2.addVertex(Estados[i].ciudad)
+    for(var j = 0; j < Estados[i].vecinos.length; j++){
+        var vecino = Estados[Estados[i].vecinos[j].ciudad].ciudad;
+        capitales2.addEdge(Estados[i].ciudad, vecino);
+    }  
+}
+capitales2.busquedaDFSRecursiva("Medellin", "Quibdo");
