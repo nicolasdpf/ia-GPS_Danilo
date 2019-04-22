@@ -37,82 +37,52 @@
         <section class="resultado"></section>
     </div>
     <div id="map"></div>
-
+    <hr><hr><hr>
     <section class="tabla1">
       
-        <div class="tg-wrap"><table class="tg">
-          <tr>
-            <th class="tg-c8qn">Costo/método</th>
-            <th class="tg-c8qn">Anchura</th>
-            <th class="tg-c8qn">Profundidad</th>
-            <th class="tg-c8qn">P Iterativa</th>
-            <th class="tg-c8qn">Costo Uniforme</th>
-          </tr>
-          <tr>
-            <td class="tg-c8qn">Ciudades/Visitadas</td>
-            <td class="tg-0lax"></td>
-            <td class="tg-0lax"></td>
-            <td class="tg-0lax"></td>
-            <td class="tg-0lax"></td>
-          </tr>
-          <tr>
-            <td class="tg-c8qn">Kilómetros Recorridos</td>
-            <td class="tg-0lax"></td>
-            <td class="tg-0lax"></td>
-            <td class="tg-0lax"></td>
-            <td class="tg-0lax"></td>
-          </tr>
-        </table></div>
+      <div class="tg-wrap"><table class="tg">
+        <tr>
+          <th class="tg-kiyi">Costo/Método</th>
+          <th class="tg-kiyi">Anchura</th>
+          <th class="tg-kiyi">Profundidad</th>
+          <th class="tg-kiyi">P Iterativa</th>
+          <th class="tg-kiyi">Costo Uniforme</th>
+        </tr>
+        <tr>
+          <td class="tg-vrwm">Ciudades Visitadas</td>
+          <td class="tg-c51l" id="CVAnc"></td>
+          <td class="tg-c51l" id="CVProf"></td>
+          <td class="tg-c51l" id="CVPIt"></td>
+          <td class="tg-c51l" id="CVcoU"></td>
+        </tr>
+        <tr>
+          <td class="tg-n2zj">Kilómetros Recorridos</td>
+          <td class="tg-xldj" id="KMRAnc"></td>
+          <td class="tg-xldj" id="KMRProf"></td>
+          <td class="tg-xldj" id="KMRPIt"></td>
+          <td class="tg-xldj" id="KMRcoU"></td>
+        </tr>
+        <tr>
+          <td class="tg-a0m7">Rend. Método de Búsqueda(ms)</td>
+          <td class="tg-phtq" id="RMBAnc"></td>
+          <td class="tg-phtq" id="RMBProf"></td>
+          <td class="tg-phtq" id="RMBPIt"></td>
+          <td class="tg-phtq" id="RMBcoU"></td>
+        </tr>
+      </table></div>
+      <div class="tg-wrap"><table class="tg2" id="tablaVisitadas">
+        <tr>
+          <th class="tg-e5ub">Ciudades Visitadas</th>
+        </tr>
+      </table></div>
     </section>
-    <section class="tabla2">
-      <table class="blueTable">
-        <thead>
-        <tr>
-        <th>&nbsp;Evaluacion/Metodo</th>
-        <th>Anchura</th>
-        <th>Profundidad</th>
-        <th>P Iterativa</th>
-        <th>Costo Uniforme</th>
-        </tr>
-        </thead>
-        <tfoot>
-        <tr>
-        <td colspan="5">
-        </td>
-        </tr>
-        </tfoot>
-        <tbody>
-        <tr>
-        <td>Completa</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        </tr>
-        <tr>
-        <td>Optima</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        </tr>
-        <tr>
-        <td>Orden espacial</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        </tr>
-        <tr>
-        <td>Orden Temporal</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        <td>&nbsp;</td>
-        </tr>
-        </tbody>
-        </table>
-    </section>
+
+    <hr><hr><hr>
+    <div class="GTraversal">
+      <button class="btn-trv"> Graph traversal Anchura</button>
+      <button class="btn-trv"> Graph traversal Anchura</button>
+      <button class="btn-trv"> Graph traversal Anchura</button>
+    </div>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA492l51r5sWbbTWH36xzu8gW2G1SfcKcA&callback=initMap&libraries=drawing" async defer></script>
     <script type="text/javascript" src="js/strEstados.js"></script>
     <script src="js/Nodo.js"></script>
@@ -129,6 +99,35 @@
       labels("origen");
       labels("destino");  
 
+      /**
+       * Con esta funcion retornamos un arreglo con las ubicaciones
+       * del grafo de estados, para poder acceder a dichas funciones
+       * */
+      function arregloEstados(result){
+        let resultEstados = [];
+        let distancias;
+        for (let index = 0; index < result.length; index++) {
+          for (let ciudad = 0; ciudad < Estados.length; ciudad++) {
+            if(Estados[ciudad].ciudad === result[index]){
+              resultEstados.push(Estados[ciudad]);
+            }
+          }
+        }
+        return resultEstados;
+      }
+
+      
+      function borrarCiudades(TablaCiudades) {
+        TablaCiudades = document.getElementById("tablaVisitadas");
+        while (TablaCiudades.hasChildNodes()) {
+          TablaCiudades.removeChild(TablaCiudades.childNodes[0]);
+        }
+        let tr = document.createElement("tr");
+          TablaCiudades.appendChild(tr);
+          tr.innerHTML = `<th class="tg-e5ub">Ciudades Visitadas</th>`;
+      }
+
+
       function realizar(){
       let ruta;
       let sele = document.getElementById("Busqueda");
@@ -139,10 +138,34 @@
       let op = sele.options[sele.selectedIndex].value;
       let result;
 
+      let TablaCiudades = document.getElementById("tablaVisitadas")
+
       if (op === "Anchura") {
         console.time('Tiempo Anchura');
+        var start = Date.now();
         result = capitales.busquedaBFSIterativa(inicial, final);
+        var end = Date.now();
         console.timeEnd('Tiempo Anchura');
+        let time = end - start;
+
+
+        let resultEstados = arregloEstados(result);
+        
+        let totalVisitadas = document.getElementById("CVAnc");
+        totalVisitadas.innerHTML = resultEstados.length;
+        let rendimientoBusqueda = document.getElementById("RMBAnc");
+        rendimientoBusqueda.innerHTML = time;
+
+
+        borrarCiudades(TablaCiudades);
+        for (let i = 0; i < resultEstados.length; i++) {
+          let tr = document.createElement("tr");
+          TablaCiudades.appendChild(tr);
+          let td = document.createElement("td");
+          tr.appendChild(td);
+          td.innerHTML = `<b  >${i}.</b>  ${result[i]}`;
+        }
+
 
         console.log(result);
         //drawPolyLine(result);
@@ -150,8 +173,28 @@
       }
       if (op === "ProfundidadIterativa") {
         console.time('Tiempo Profundidad Iterativa');
+        var start = Date.now();
         result = capitales.busquedaDFSIterativa(inicial, final);
+        var end = Date.now();
         console.timeEnd('Tiempo Profundidad Iterativa');
+        let time = end - start;
+
+
+        let resultEstados = arregloEstados(result);
+        
+        let totalVisitadas = document.getElementById("CVPIt");
+        totalVisitadas.innerHTML = resultEstados.length;
+        let rendimientoBusqueda = document.getElementById("RMBPIt");
+        rendimientoBusqueda.innerHTML = time;
+
+        borrarCiudades(TablaCiudades);
+        for (let i = 0; i < resultEstados.length; i++) {
+          let tr = document.createElement("tr");
+          TablaCiudades.appendChild(tr);
+          let td = document.createElement("td");
+          tr.appendChild(td);
+          td.innerHTML = `<b>${i}.</b>  ${result[i]}`;
+        }
 
         console.log(result);
         //drawPolyLine(result);
@@ -160,16 +203,57 @@
       }
       if (op === "ProfundidadRecursividad") {
         console.time('Tiempo Profundidad Recursividad');
+        var start = Date.now();
         result = capitales.busquedaDFSRecursiva(inicial, final);
+        var end = Date.now();
         console.timeEnd('Tiempo Profundidad Recursividad');
+        let time = end - start;
+
+        let resultEstados = arregloEstados(result);
+        
+        let totalVisitadas = document.getElementById("CVProf");
+        totalVisitadas.innerHTML = resultEstados.length;
+        let rendimientoBusqueda = document.getElementById("RMBProf");
+        rendimientoBusqueda.innerHTML = time;
+
+        borrarCiudades(TablaCiudades);
+        for (let i = 0; i < resultEstados.length; i++) {
+          let tr = document.createElement("tr");
+          TablaCiudades.appendChild(tr);
+          let td = document.createElement("td");
+          tr.appendChild(td);
+          td.innerHTML = `<b>${i}.</b>  ${result[i]}`;
+        }
+
         console.log(result);
         //drawPolyLine(result);
         displayRoute(result);
       }
       if (op === "CostoUniforme") {
         console.time('Tiempo Dijkstra');
+        var start = Date.now();
         result = capitalesW.Dijkstra(inicial, final);
+        var end = Date.now();
         console.timeEnd('Tiempo Dijkstra');
+
+        let time = end - start;
+
+        let resultEstados = arregloEstados(result);
+        
+        let totalVisitadas = document.getElementById("CVcoU");
+        totalVisitadas.innerHTML = resultEstados.length;
+        let rendimientoBusqueda = document.getElementById("RMBcoU");
+        rendimientoBusqueda.innerHTML = time;
+
+        borrarCiudades(TablaCiudades);
+        for (let i = 0; i < resultEstados.length; i++) {
+          let tr = document.createElement("tr");
+          TablaCiudades.appendChild(tr);
+          let td = document.createElement("td");
+          tr.appendChild(td);
+          td.innerHTML = `<b>${i}.</b>  ${result[i]}`;
+        }
+
         console.log(result);
         //drawPolyLine(result);
         displayRoute(result);
