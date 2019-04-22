@@ -16,14 +16,17 @@ class PriorityQueue {
   
   class WeightedGraph {
       constructor() {
-          this.adjacencyList = {};
+        //La lista de adyacencia permite guardar 
+        //los vertices con sus respectivas relaciones con otros vertices
+        this.adjacencyList = {}; 
       }
       addVertex(vertex){
+          //Si el vertice aun no está en la lista, lo añade
           if(!this.adjacencyList[vertex]) this.adjacencyList[vertex] = [];
       }
       addEdge(vertex1,vertex2, weight){
+          //Relaciona al vertice con otro vertice y asigna el costo de dicha arista
           this.adjacencyList[vertex1].push({node:vertex2,weight});
-          //this.adjacencyList[vertex2].push({node:vertex1, weight});
       }
       Dijkstra(start, finish){
           const nodes = new PriorityQueue();
@@ -76,10 +79,3 @@ class PriorityQueue {
       }
   }
   
-  
- 
-/*
-  capitalesW.Dijkstra("Medellin", "Tunja");
-  console.log( capitalesW.Dijkstra("Medellin", "Arauca"));
-
-*/
