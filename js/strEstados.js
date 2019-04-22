@@ -3,6 +3,7 @@
  * Capitales de colombia, ubicacion latitud y longitud en decimales simples
  * y ciudades cercanas 
  */
+
 var Estados = [
 //0
     {ciudad : "Leticia",
@@ -108,7 +109,7 @@ var Estados = [
     vecinos : [{ciudad: 10, distancia: 523}, {ciudad: 26, distancia: 196} , {ciudad: 5, distancia: 407}]},
 //22
     {ciudad : "Mocoa",
-    ubicacion : { lat: 1.14748 , lng: -76.6473}, /** */
+    ubicacion : { lat: 1.14748 , lng: -76.6473},
     vecinos : [{ciudad: 20, distancia: 147}, {ciudad: 9, distancia: 349}, {ciudad: 7, distancia: 136},
         {ciudad: 0, distancia: 955}]},
 //23
