@@ -14,9 +14,19 @@ for(var i = 0; i < Estados.length ; i++){
     }  
 }
 
+var capitalesW = new WeightedGraph();
+for (let index = 0; index < Estados.length; index++) {
+    capitalesW.addVertex(Estados[index].ciudad);  
+    for(var j = 0; j < Estados[index].vecinos.length; j++){
+      var vecino = Estados[Estados[index].vecinos[j].ciudad].ciudad;
+      capitalesW.addEdge(Estados[index].ciudad, vecino,Estados[index].vecinos[j].distancia);
+  }      
+}
+
+
 let labels = (lista) =>{
   let inicial = document.getElementById(lista);
-  console.log(inicial);
+  
   let option;
   let texto;
   for (let i = 0; i < Estados.length; i++) {

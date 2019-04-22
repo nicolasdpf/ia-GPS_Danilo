@@ -12,7 +12,7 @@
   <body>
     <div class="contenedor">
       <div id="titulo">
-        <h1 class="nombre-sitio"> RUTAS POR COLOMBIA </h1>
+        <h1 class="nombre-sitio"> RUTAS POR COLOMBIA</h1>
       </div>
       <div class="formulario">
         <div id="op1">
@@ -30,12 +30,89 @@
               <option value="Anchura">Anchura</option>
               <option value="ProfundidadIterativa">Profundidad Iterativa</option>
               <option value="ProfundidadRecursividad">Profundidad por Recursividad</option>
+              <option value="CostoUniforme">Costo Uniforme</option>
             </select>
         </div>
 
         <section class="resultado"></section>
     </div>
     <div id="map"></div>
+
+    <section class="tabla1">
+      
+        <div class="tg-wrap"><table class="tg">
+          <tr>
+            <th class="tg-c8qn">Costo/método</th>
+            <th class="tg-c8qn">Anchura</th>
+            <th class="tg-c8qn">Profundidad</th>
+            <th class="tg-c8qn">P Iterativa</th>
+            <th class="tg-c8qn">Costo Uniforme</th>
+          </tr>
+          <tr>
+            <td class="tg-c8qn">Ciudades/Visitadas</td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+          </tr>
+          <tr>
+            <td class="tg-c8qn">Kilómetros Recorridos</td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+            <td class="tg-0lax"></td>
+          </tr>
+        </table></div>
+    </section>
+    <section class="tabla2">
+      <table class="blueTable">
+        <thead>
+        <tr>
+        <th>&nbsp;Evaluacion/Metodo</th>
+        <th>Anchura</th>
+        <th>Profundidad</th>
+        <th>P Iterativa</th>
+        <th>Costo Uniforme</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+        <td colspan="5">
+        </td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <tr>
+        <td>Completa</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>Optima</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>Orden espacial</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+        <tr>
+        <td>Orden Temporal</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        </tr>
+        </tbody>
+        </table>
+    </section>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA492l51r5sWbbTWH36xzu8gW2G1SfcKcA&callback=initMap&libraries=drawing" async defer></script>
     <script type="text/javascript" src="js/strEstados.js"></script>
     <script src="js/Nodo.js"></script>
@@ -44,6 +121,7 @@
     <script src="js/Stack.js"></script>
     <script src="js/Tree.js"></script>
     <script src="js/Graph.js"></script>
+    <script src="js/CostoUniforme.js"></script>
     <script src="js/GoogleMaps.js"></script>
     <script src="js/main.js"></script>
     
@@ -62,26 +140,40 @@
       let result;
 
       if (op === "Anchura") {
-          
+        console.time('Tiempo Anchura');
         result = capitales.busquedaBFSIterativa(inicial, final);
+        console.timeEnd('Tiempo Anchura');
+
         console.log(result);
-        drawPolyLine(result);
-        //displayRoute(result);
-        
+        //drawPolyLine(result);
+        displayRoute(result);
       }
       if (op === "ProfundidadIterativa") {
+        console.time('Tiempo Profundidad Iterativa');
         result = capitales.busquedaDFSIterativa(inicial, final);
+        console.timeEnd('Tiempo Profundidad Iterativa');
+
         console.log(result);
-        drawPolyLine(result);
-        //displayRoute(result);
+        //drawPolyLine(result);
+        displayRoute(result);
         
       }
       if (op === "ProfundidadRecursividad") {
+        console.time('Tiempo Profundidad Recursividad');
         result = capitales.busquedaDFSRecursiva(inicial, final);
+        console.timeEnd('Tiempo Profundidad Recursividad');
         console.log(result);
-        drawPolyLine(result);
-        //displayRoute(result);
-    }
+        //drawPolyLine(result);
+        displayRoute(result);
+      }
+      if (op === "CostoUniforme") {
+        console.time('Tiempo Dijkstra');
+        result = capitalesW.Dijkstra(inicial, final);
+        console.timeEnd('Tiempo Dijkstra');
+        console.log(result);
+        //drawPolyLine(result);
+        displayRoute(result);
+      }
       sele.selectedIndex = 0;
     }
 

@@ -63,8 +63,8 @@ class Graph{
             visited[vertex] = true;
             result.push(vertex);
 
-            console.log(result);
-            console.log("Final,", final);
+           // console.log(result);
+            //console.log("Final,", final);
             /*while(vertex === final){
                 console.log("Hola ya lo encontré");
                 return result;
@@ -189,7 +189,7 @@ class Graph{
         return result;
     }
 }
-
+/*
 let capitales2 = new Graph()
 
 for(var i = 0; i < Estados.length ; i++){
@@ -199,4 +199,4 @@ for(var i = 0; i < Estados.length ; i++){
         capitales2.addEdge(Estados[i].ciudad, vecino);
     }  
 }
-capitales2.busquedaDFSRecursiva("Medellin", "Quibdo");
+capitales2.busquedaDFSRecursiva("Medellin", "Quibdo");*/
