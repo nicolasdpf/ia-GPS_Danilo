@@ -78,11 +78,14 @@
     </section>
 
     <hr><hr><hr>
-    <div class="GTraversal">
-      <button class="btn-trv"> Graph traversal Anchura</button>
-      <button class="btn-trv"> Graph traversal Anchura</button>
-      <button class="btn-trv"> Graph traversal Anchura</button>
-    </div>
+    <!-- <div class="GTraversal">
+      <button class="btn-trv"> Graph Traversal Anchura</button>
+      <button class="btn-trv"> Graph Traversal Profundidad</button>
+
+    </div> -->
+    <div id="map2"></div>
+    
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA492l51r5sWbbTWH36xzu8gW2G1SfcKcA&callback=initMap&libraries=drawing" async defer></script>
     <script type="text/javascript" src="js/strEstados.js"></script>
     <script src="js/Nodo.js"></script>
@@ -163,7 +166,7 @@
           TablaCiudades.appendChild(tr);
           let td = document.createElement("td");
           tr.appendChild(td);
-          td.innerHTML = `<b  >${i}.</b>  ${result[i]}`;
+          td.innerHTML = `<b  >${i + 1}.</b>  ${result[i]}`;
         }
 
 
@@ -193,7 +196,7 @@
           TablaCiudades.appendChild(tr);
           let td = document.createElement("td");
           tr.appendChild(td);
-          td.innerHTML = `<b>${i}.</b>  ${result[i]}`;
+          td.innerHTML = `<b>${i + 1}.</b>  ${result[i]}`;
         }
 
         console.log(result);
@@ -222,7 +225,7 @@
           TablaCiudades.appendChild(tr);
           let td = document.createElement("td");
           tr.appendChild(td);
-          td.innerHTML = `<b>${i}.</b>  ${result[i]}`;
+          td.innerHTML = `<b>${i + 1}.</b>  ${result[i]}`;
         }
 
         console.log(result);
@@ -251,7 +254,7 @@
           TablaCiudades.appendChild(tr);
           let td = document.createElement("td");
           tr.appendChild(td);
-          td.innerHTML = `<b>${i}.</b>  ${result[i]}`;
+          td.innerHTML = `<b>${i + 1}.</b>  ${result[i]}`;
         }
 
         console.log(result);

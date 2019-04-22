@@ -3,6 +3,8 @@
  */
 
 var map;
+var map2;
+
 function initMap() {
 
     // Create a new StyledMapType object, passing it an array of styles,
@@ -258,6 +260,8 @@ function initMap() {
     });
     dirServ = new google.maps.DirectionsService();
 }
+
+
 
 
 function drawPolyLine(result){

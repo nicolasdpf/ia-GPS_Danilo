@@ -139,7 +139,10 @@ ul {
     width: 100%;
 }
 
-
+#map2 {
+    height: 500px;
+    width: 100%;
+}
 
 
 
@@ -184,7 +187,17 @@ h1.nombre-sitio {
 }
 
 .btn-trv{
-    background-color: #333333;
+    background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+.btn-trv:hover{
+    background-color: rgb(55, 119, 57); /* Green */
 }
 
 .tg  {border-collapse:collapse;border-spacing:0;border-color:#9ABAD9;margin:0px auto;}

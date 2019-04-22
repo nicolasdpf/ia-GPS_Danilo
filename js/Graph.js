@@ -62,14 +62,6 @@ class Graph{
 
             visited[vertex] = true;
             result.push(vertex);
-
-           // console.log(result);
-            //console.log("Final,", final);
-            /*while(vertex === final){
-                console.log("Hola ya lo encontré");
-                return result;
-            }   
-            */
             dataList[vertex].forEach(neighbor =>{
                 if(!visited[neighbor]){
                     dfs(neighbor, final);
