@@ -235,7 +235,7 @@
       if (op === "CostoUniforme") {
         console.time('Tiempo Dijkstra');
         var start = Date.now();
-        result = capitalesW.Dijkstra(inicial, final);
+        result = capitalesW.costoUniformeD(inicial, final);
         var end = Date.now();
         console.timeEnd('Tiempo Dijkstra');
 
