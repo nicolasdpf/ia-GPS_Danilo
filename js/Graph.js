@@ -1,3 +1,4 @@
+/*jshint esversion:6*/
 class Graph{
     constructor(){
         this.dataList = {}
@@ -111,14 +112,14 @@ class Graph{
             return result;
         }
         while(stack.length){ //Mientras haya datos en la pila
-            console.log(`Profundidad = ${profundidad}`);
+            //console.log(`Profundidad = ${profundidad}`);
             currentVertex = stack.pop();
             result.push(currentVertex);
             if(currentVertex === destino){
                 return result;
             }
             this.dataList[currentVertex].forEach(vecino => {
-                console.log(this.dataList[currentVertex]);
+                //console.log(this.dataList[currentVertex]);
                 if(!visited[vecino]){ //Si mi vecino no ha sido visitado
                     visited[vecino] = true;
                     stack.push(vecino);                            
@@ -138,7 +139,7 @@ class Graph{
 
         if( start === origen ) {
             console.log("Origen y destino son iguales");
-            return null
+            return null;
         }
 
         while(queue.length){
@@ -146,9 +147,9 @@ class Graph{
             
             result.push(currentVertex);
             if(currentVertex === origen){
-                return result
+                return result;
             }
-            this.dataList[currentVertex].forEach( neighbor =>{
+            this.dataList[currentVertex].forEach( neighbor => {
                 if(!visited[neighbor]){
                     visited[neighbor] = true;
                     queue.push(neighbor);
@@ -181,14 +182,3 @@ class Graph{
         return result;
     }
 }
-/*
-let capitales2 = new Graph()
-
-for(var i = 0; i < Estados.length ; i++){
-    capitales2.addVertex(Estados[i].ciudad)
-    for(var j = 0; j < Estados[i].vecinos.length; j++){
-        var vecino = Estados[Estados[i].vecinos[j].ciudad].ciudad;
-        capitales2.addEdge(Estados[i].ciudad, vecino);
-    }  
-}
-capitales2.busquedaDFSRecursiva("Medellin", "Quibdo");*/

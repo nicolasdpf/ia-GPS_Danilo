@@ -1,4 +1,4 @@
-
+/*jshint esversion:6*/
 
 /**
  * Con estas primeras lineas, inicializamos el grafo con todas las capitales como vertices/nodos
@@ -14,7 +14,7 @@ for(var i = 0; i < Estados.length ; i++){
     }  
 }
 
-var capitalesW = new WeightedGraph();
+var capitalesW = new GraphCosteado();
 for (let index = 0; index < Estados.length; index++) {
     capitalesW.addVertex(Estados[index].ciudad);  
     for(var j = 0; j < Estados[index].vecinos.length; j++){

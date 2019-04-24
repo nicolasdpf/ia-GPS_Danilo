@@ -99,6 +99,8 @@
     <script src="js/main.js"></script>
     
     <script>
+    /*jshint esversion:6*/
+
       labels("origen");
       labels("destino");  
 
@@ -233,11 +235,11 @@
         displayRoute(result);
       }
       if (op === "CostoUniforme") {
-        console.time('Tiempo Dijkstra');
+        console.time('Tiempo Costo Uniforme');
         var start = Date.now();
         result = capitalesW.costoUniformeD(inicial, final);
         var end = Date.now();
-        console.timeEnd('Tiempo Dijkstra');
+        console.timeEnd('Tiempo Costo Uniforme');
 
         let time = end - start;
 

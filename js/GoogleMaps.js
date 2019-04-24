@@ -1,3 +1,4 @@
+/*jshint esversion:6*/
 /**
  * Establecemos funciones para correr el mapa por pantalla
  */
