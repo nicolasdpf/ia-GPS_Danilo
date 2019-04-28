@@ -132,6 +132,36 @@
           tr.innerHTML = `<th class="tg-e5ub">Ciudades Visitadas</th>`;
       }
 
+      Number.prototype.toRad = function() {
+        return this * Math.PI / 180;
+      }
+      function distanceHaversine(result){
+        const earthRadious = 6371;
+        let totalDistance = 0;
+          for (let i = 0; i < result.length + 1; i++) {
+            if(result[i+1] != undefined){
+              
+              let x2x1 = ((result[i + 1].ubicacion.lat) - (result[i].ubicacion.lat)).toRad();
+              let y2y1 = ((result[i + 1].ubicacion.lng) - (result[i].ubicacion.lng)).toRad();
+              console.log("y2y1", y2y1, i);
+              console.log("x2x1", x2x1, i);
+
+              let a = Math.pow(Math.sin(x2x1 / 2), 2 ) + (Math.cos(result[i].ubicacion.lat).toRad() * Math.cos(result[i+1].ubicacion.lat).toRad() * Math.pow(Math.sin(y2y1 / 2), 2));
+              console.log("a", a);
+              let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+              console.log("c", c);
+              let u = earthRadious * c;
+              console.log("u",u);
+              totalDistance += u;
+              console.log("TotalDistance", totalDistance);
+
+            }else{
+              break;
+            }
+          }
+        return totalDistance;
+
+      }
 
       function realizar(){
       let ruta;
@@ -245,6 +275,9 @@
 
         let resultEstados = arregloEstados(result);
         
+        let totalDistance = distanceHaversine(resultEstados);
+        console.log(totalDistance);
+        
         let totalVisitadas = document.getElementById("CVcoU");
         totalVisitadas.innerHTML = resultEstados.length;
         let rendimientoBusqueda = document.getElementById("RMBcoU");
@@ -259,8 +292,8 @@
           td.innerHTML = `<b>${i + 1}.</b>  ${result[i]}`;
         }
 
-        console.log(result);
-        //drawPolyLine(result);
+        console.log(resultEstados);
+        //drawPolyLine();
         displayRoute(result);
       }
       sele.selectedIndex = 0;
