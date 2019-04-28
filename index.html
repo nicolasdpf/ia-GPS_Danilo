@@ -143,17 +143,16 @@
               
               let x2x1 = ((result[i + 1].ubicacion.lat) - (result[i].ubicacion.lat)).toRad();
               let y2y1 = ((result[i + 1].ubicacion.lng) - (result[i].ubicacion.lng)).toRad();
-              console.log("y2y1", y2y1, i);
-              console.log("x2x1", x2x1, i);
+          
+          
 
               let a = Math.pow(Math.sin(x2x1 / 2), 2 ) + (Math.cos(result[i].ubicacion.lat).toRad() * Math.cos(result[i+1].ubicacion.lat).toRad() * Math.pow(Math.sin(y2y1 / 2), 2));
-              console.log("a", a);
+          
               let c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-              console.log("c", c);
+          
               let u = earthRadious * c;
-              console.log("u",u);
+          
               totalDistance += u;
-              console.log("TotalDistance", totalDistance);
 
             }else{
               break;
@@ -177,19 +176,24 @@
 
       if (op === "Anchura") {
         console.time('Tiempo Anchura');
-        var start = Date.now();
+        var start = new Date().getMilliseconds();
         result = capitales.busquedaBFSIterativa(inicial, final);
-        var end = Date.now();
+        var end = new Date().getMilliseconds();
         console.timeEnd('Tiempo Anchura');
-        let time = end - start;
+        let time = (end - start) / 1000;
 
 
         let resultEstados = arregloEstados(result);
-        
+      
+
         let totalVisitadas = document.getElementById("CVAnc");
         totalVisitadas.innerHTML = resultEstados.length;
         let rendimientoBusqueda = document.getElementById("RMBAnc");
         rendimientoBusqueda.innerHTML = time;
+        let totalDistance = distanceHaversine(resultEstados);
+        let distanciaTotal = document.getElementById("KMRAnc");
+        distanciaTotal.innerHTML = totalDistance.toFixed(2);
+
 
 
         borrarCiudades(TablaCiudades);
@@ -202,17 +206,18 @@
         }
 
 
-        console.log(result);
+        
         //drawPolyLine(result);
         displayRoute(result);
       }
       if (op === "ProfundidadIterativa") {
         console.time('Tiempo Profundidad Iterativa');
-        var start = Date.now();
+       
+        var start = new Date().getMilliseconds();
         result = capitales.busquedaDFSIterativa(inicial, final);
-        var end = Date.now();
+        var end = new Date().getMilliseconds();
         console.timeEnd('Tiempo Profundidad Iterativa');
-        let time = end - start;
+        let time = (end - start) / 1000;
 
 
         let resultEstados = arregloEstados(result);
@@ -221,6 +226,9 @@
         totalVisitadas.innerHTML = resultEstados.length;
         let rendimientoBusqueda = document.getElementById("RMBPIt");
         rendimientoBusqueda.innerHTML = time;
+        let totalDistance = distanceHaversine(resultEstados);
+        let distanciaTotal = document.getElementById("KMRPIt");
+        distanciaTotal.innerHTML = totalDistance.toFixed(2);
 
         borrarCiudades(TablaCiudades);
         for (let i = 0; i < resultEstados.length; i++) {
@@ -230,19 +238,18 @@
           tr.appendChild(td);
           td.innerHTML = `<b>${i + 1}.</b>  ${result[i]}`;
         }
-
-        console.log(result);
-        //drawPolyLine(result);
         displayRoute(result);
         
       }
       if (op === "ProfundidadRecursividad") {
         console.time('Tiempo Profundidad Recursividad');
-        var start = Date.now();
+        var start = new Date().getMilliseconds();
         result = capitales.busquedaDFSRecursiva(inicial, final);
-        var end = Date.now();
+        var end = new Date().getMilliseconds();
+        
         console.timeEnd('Tiempo Profundidad Recursividad');
-        let time = end - start;
+        let time = (end - start) / 1000;
+
 
         let resultEstados = arregloEstados(result);
         
@@ -251,6 +258,10 @@
         let rendimientoBusqueda = document.getElementById("RMBProf");
         rendimientoBusqueda.innerHTML = time;
 
+        let totalDistance = distanceHaversine(resultEstados);
+        let distanciaTotal = document.getElementById("KMRProf");
+        distanciaTotal.innerHTML = totalDistance.toFixed(2);
+
         borrarCiudades(TablaCiudades);
         for (let i = 0; i < resultEstados.length; i++) {
           let tr = document.createElement("tr");
@@ -260,18 +271,18 @@
           td.innerHTML = `<b>${i + 1}.</b>  ${result[i]}`;
         }
 
-        console.log(result);
-        //drawPolyLine(result);
+        
         displayRoute(result);
       }
       if (op === "CostoUniforme") {
         console.time('Tiempo Costo Uniforme');
-        var start = Date.now();
-        result = capitalesW.costoUniformeD(inicial, final);
-        var end = Date.now();
+        var start = new Date().getMilliseconds();
+    
+        var end = new Date().getMilliseconds();
+       
         console.timeEnd('Tiempo Costo Uniforme');
 
-        let time = end - start;
+        let time = (end - start) / 1000;
 
         let resultEstados = arregloEstados(result);
         
@@ -280,8 +291,12 @@
         
         let totalVisitadas = document.getElementById("CVcoU");
         totalVisitadas.innerHTML = resultEstados.length;
+
         let rendimientoBusqueda = document.getElementById("RMBcoU");
         rendimientoBusqueda.innerHTML = time;
+
+        let distanciaTotal = document.getElementById("KMRcoU");
+        distanciaTotal.innerHTML = totalDistance.toFixed(2);
 
         borrarCiudades(TablaCiudades);
         for (let i = 0; i < resultEstados.length; i++) {
@@ -292,7 +307,7 @@
           td.innerHTML = `<b>${i + 1}.</b>  ${result[i]}`;
         }
 
-        console.log(resultEstados);
+        
         //drawPolyLine();
         displayRoute(result);
       }
