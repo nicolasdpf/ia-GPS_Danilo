@@ -5,7 +5,7 @@ class Graph{
     }
     addVertex(vertex){
         if(!this.dataList[vertex]){
-            this.dataList[vertex] = []
+            this.dataList[vertex] = [];
         }
     }
 
