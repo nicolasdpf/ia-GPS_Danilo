@@ -3,6 +3,7 @@
  * 
  * 
  * **/
+
 class PriorityQueue {
     constructor(){
       this.values = [];
@@ -78,7 +79,7 @@ class GraphCosteado {
                     let nextNode = this.adjacencyList[nodoMenor][neighbor];
                     //Calcula nueva distancia al Nodo vecino sumando la distancia actual+ coste del vecino
                     let candidato = distances[nodoMenor] + nextNode.weight;
-
+                    
                     let nextNeighbor = nextNode.node;
                     if(candidato < distances[nextNeighbor]){
                         
@@ -94,6 +95,57 @@ class GraphCosteado {
         return path.concat(nodoMenor).reverse();     
     }
 
+
+    Astar(inicio, final){
+        //Nodos visitados
+        let closeSet = {};
+        //Nodos en fila de revision
+        let openSet = new PriorityQueue();
+
+        //Costo del nodo inicial al actual
+        let gScore = {};
+
+        //Straight line del nodo actual a la meta
+        let fScore = {};
+
+        let path = [];
+        /*
+        for (let vertex in this.adjacencyList) {
+            if (vertex === origen) {
+                gScore[vertex] = 0;
+                fScore[vertex] = 0;
+                openSet.enqueue(vertex, 0);
+            }else{
+                gScore[vertex] = Infinity;
+                gScore[inicio] = 0;
+                fScore[inicio] = calculateDistance(inicio, final);
+            }
+        }
+
+        openSet.enqueue(inicio, 0);
+        console.log(openSet);
+        while(openSet){
+            let current = openSet.dequeue().val;
+            closeSet[current] = true;
+
+            if(current.val === final){
+                while(closeSet[current]){
+                    path.push(current.val);
+                }
+                break;
+            }
+            console.log(this.adjacencyList[current]);
+    
+            for(let neighbor = 0; neighbor <this.adjacencyList[current].length; neighbor++){
+
+            }
+            //this.adjacencyList[current]
+        }
+        */
+    }
+
+
+
     busquedaBFSIterativa(origen, destino){
         const Node = new PriorityQueue();
         Node.enqueue(origen, 0);
@@ -103,4 +155,42 @@ class GraphCosteado {
         visited[origen] = true;
     }
 }
-  
+
+function calculateDistance(start, end){
+    let indexStart = findIndex(start);
+    let indexEnd = findIndex(end);
+
+    start = Estados[indexStart];
+    end = Estados[indexEnd];
+
+    var R = 6371; // metres
+    var φ1 = start.ubicacion.lat.toRad();
+    var φ2 = end.ubicacion.lat.toRad();
+    var Δφ = (end.ubicacion.lat - start.ubicacion.lat).toRad();
+    var Δλ = (end.ubicacion.lng - start.ubicacion.lng).toRad();
+    
+    var a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+    Math.cos(φ1) * Math.cos(φ2) *
+    Math.sin(Δλ/2) * Math.sin(Δλ/2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    
+    var d = R * c;
+    return d;
+}
+
+Number.prototype.toRad = function() {
+    return this * Math.PI / 180;
+  }
+
+
+
+function findIndex(target){
+    let result;
+    for(i = 0; i < Estados.length; i++){
+        if(Estados[i].ciudad === target){
+            result = i;
+            continue;
+        }
+    }
+    return result;
+}

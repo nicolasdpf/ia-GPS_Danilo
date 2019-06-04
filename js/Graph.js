@@ -112,14 +112,14 @@ class Graph{
             return result;
         }
         while(stack.length){ //Mientras haya datos en la pila
-            //console.log(`Profundidad = ${profundidad}`);
+            
             currentVertex = stack.pop();
             result.push(currentVertex);
+
             if(currentVertex === destino){
                 return result;
             }
             this.dataList[currentVertex].forEach(vecino => {
-                //console.log(this.dataList[currentVertex]);
                 if(!visited[vecino]){ //Si mi vecino no ha sido visitado
                     visited[vecino] = true;
                     stack.push(vecino);                            

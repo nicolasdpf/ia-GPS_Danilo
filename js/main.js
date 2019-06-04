@@ -23,6 +23,8 @@ for (let index = 0; index < Estados.length; index++) {
   }      
 }
 
+capitalesW.Astar("Medellin", "Bogota");
+
 
 let labels = (lista) =>{
   let inicial = document.getElementById(lista);
