@@ -31,15 +31,17 @@
               <option value="ProfundidadIterativa">Profundidad Iterativa</option>
               <option value="ProfundidadRecursividad">Profundidad por Recursividad</option>
               <option value="CostoUniforme">Costo Uniforme</option>
+              <option value="Aestrella">A estrella</option>
+              <option value="Voraz">Voraz</option>
             </select>
         </div>
-
         <section class="resultado"></section>
+        <p>Si el mapa no cambia, volver a cargar la página</p>
     </div>
+    <hr><hr><hr>
     <div id="map"></div>
     <hr><hr><hr>
     <section class="tabla1">
-      
       <div class="tg-wrap"><table class="tg">
         <tr>
           <th class="tg-kiyi">Costo/Método</th>
@@ -47,6 +49,8 @@
           <th class="tg-kiyi">Profundidad</th>
           <th class="tg-kiyi">P Iterativa</th>
           <th class="tg-kiyi">Costo Uniforme</th>
+          <th class="tg-kiyi">A estrella</th>
+          <th class="tg-kiyi">Voraz</th>
         </tr>
         <tr>
           <td class="tg-vrwm">Ciudades Visitadas</td>
@@ -54,6 +58,8 @@
           <td class="tg-c51l" id="CVProf"></td>
           <td class="tg-c51l" id="CVPIt"></td>
           <td class="tg-c51l" id="CVcoU"></td>
+          <td class="tg-c51l" id="CVaEs"></td>
+          <td class="tg-c51l" id="CVvor"></td>
         </tr>
         <tr>
           <td class="tg-n2zj">Kilómetros Recorridos</td>
@@ -61,6 +67,8 @@
           <td class="tg-xldj" id="KMRProf"></td>
           <td class="tg-xldj" id="KMRPIt"></td>
           <td class="tg-xldj" id="KMRcoU"></td>
+          <td class="tg-xldj" id="KMRaEs"></td>
+          <td class="tg-xldj" id="KMRvor"></td>
         </tr>
         <tr>
           <td class="tg-a0m7">Rend. Método de Búsqueda(ms)</td>
@@ -68,6 +76,8 @@
           <td class="tg-phtq" id="RMBProf"></td>
           <td class="tg-phtq" id="RMBPIt"></td>
           <td class="tg-phtq" id="RMBcoU"></td>
+          <td class="tg-phtq" id="RMBaEs"></td>
+          <td class="tg-phtq" id="RMBvor"></td>
         </tr>
       </table></div>
       <div class="tg-wrap"><table class="tg2" id="tablaVisitadas">
@@ -93,12 +103,27 @@
     <script src="js/List.js"></script>
     <script src="js/Stack.js"></script>
     <script src="js/Tree.js"></script>
-    <script src="js/Graph.js"></script>
     <script src="js/CostoUniforme.js"></script>
+    <script src="js/Graph.js"></script>
     <script src="js/GoogleMaps.js"></script>
     <script src="js/main.js"></script>
     
     <script>
+      let labels = (lista) =>{
+        let inicial = document.getElementById(lista);
+        
+        let option;
+        let texto;
+        for (let i = 0; i < Estados.length; i++) {
+            option = document.createElement("option");
+            option.value = Estados[i].ciudad;
+            texto = document.createTextNode("" + i + " " + Estados[i].ciudad);
+            option.appendChild(texto);
+            inicial.appendChild(option);
+        }
+      }
+
+
     /*jshint esversion:6*/
 
       labels("origen");
@@ -109,6 +134,7 @@
        * del grafo de estados, para poder acceder a dichas funciones
        * */
       function arregloEstados(result){
+        console.log(result);
         let resultEstados = [];
         let distancias;
         for (let index = 0; index < result.length; index++) {
@@ -176,11 +202,14 @@
 
       if (op === "Anchura") {
         console.time('Tiempo Anchura');
-        var start = new Date().getMilliseconds();
+        // var start = new Date().getMilliseconds();
+        var start = performance.now();
         result = capitales.busquedaBFSIterativa(inicial, final);
-        var end = new Date().getMilliseconds();
+        // var end = new Date().getMilliseconds();
+        var end = performance.now();
+
         console.timeEnd('Tiempo Anchura');
-        let time = (end - start) / 1000;
+        let time = (end - start);
 
 
         let resultEstados = arregloEstados(result);
@@ -213,11 +242,14 @@
       if (op === "ProfundidadIterativa") {
         console.time('Tiempo Profundidad Iterativa');
        
-        var start = new Date().getMilliseconds();
+        // var start = new Date().getMilliseconds();
+        var start = performance.now();
         result = capitales.busquedaDFSIterativa(inicial, final);
-        var end = new Date().getMilliseconds();
+        // var end = new Date().getMilliseconds();
+        var end = performance.now();
+
         console.timeEnd('Tiempo Profundidad Iterativa');
-        let time = (end - start) / 1000;
+        let time = (end - start);
 
 
         let resultEstados = arregloEstados(result);
@@ -243,12 +275,14 @@
       }
       if (op === "ProfundidadRecursividad") {
         console.time('Tiempo Profundidad Recursividad');
-        var start = new Date().getMilliseconds();
+        // var start = new Date().getMilliseconds();
+        var start = performance.now();
         result = capitales.busquedaDFSRecursiva(inicial, final);
-        var end = new Date().getMilliseconds();
+        // var end = new Date().getMilliseconds();
+        var end = performance.now();
         
         console.timeEnd('Tiempo Profundidad Recursividad');
-        let time = (end - start) / 1000;
+        let time = (end - start);
 
 
         let resultEstados = arregloEstados(result);
@@ -276,13 +310,15 @@
       }
       if (op === "CostoUniforme") {
         console.time('Tiempo Costo Uniforme');
-        var start = new Date().getMilliseconds();
+        // var start = new Date().getMilliseconds();
+        var start = performance.now();
         result = capitalesW.costoUniformeD(inicial, final);    
-        var end = new Date().getMilliseconds();
+        // var end = new Date().getMilliseconds();
+        var end = performance.now();
        
         console.timeEnd('Tiempo Costo Uniforme');
 
-        let time = (end - start) / 1000;
+        let time = (end - start);
 
         let resultEstados = arregloEstados(result);
         
@@ -311,6 +347,84 @@
         //drawPolyLine();
         displayRoute(result);
       }
+      if (op === "Aestrella") {
+        console.time('Tiempo A estrella');
+        // var start = new Date().getMilliseconds();
+        var start = performance.now();
+        result = capitales.Astar(inicial, final);    
+        // var end = new Date().getMilliseconds();
+        var end = performance.now();
+               
+        console.timeEnd('Tiempo A estrella');
+
+        let time = (end - start);
+
+        let resultEstados = arregloEstados(result);
+        
+        let totalDistance = distanceHaversine(resultEstados);
+        console.log(totalDistance);
+        
+        let totalVisitadas = document.getElementById("CVaEs");
+        totalVisitadas.innerHTML = resultEstados.length;
+
+        let rendimientoBusqueda = document.getElementById("RMBaEs");
+        rendimientoBusqueda.innerHTML = time;
+
+        let distanciaTotal = document.getElementById("KMRaEs");
+        distanciaTotal.innerHTML = totalDistance.toFixed(2);
+
+        borrarCiudades(TablaCiudades);
+        for (let i = 0; i < resultEstados.length; i++) {
+          let tr = document.createElement("tr");
+          TablaCiudades.appendChild(tr);
+          let td = document.createElement("td");
+          tr.appendChild(td);
+          td.innerHTML = `<b>${i + 1}.</b>  ${result[i]}`;
+        }
+
+        
+        //drawPolyLine();
+        displayRoute(result);
+      }
+      if (op === "Voraz") {
+        console.time('Tiempo Voraz');
+        // var start = new Date().getMilliseconds();
+        var start = performance.now();
+        result = capitalesW.voraz(inicial, final);    
+        // var end = new Date().getMilliseconds();
+        var end = performance.now();
+        console.timeEnd('Tiempo Voraz');
+
+        let time = (end - start);
+
+        let resultEstados = arregloEstados(result);
+        
+        let totalDistance = distanceHaversine(resultEstados);
+        console.log(totalDistance);
+        
+        let totalVisitadas = document.getElementById("CVvor");
+        totalVisitadas.innerHTML = resultEstados.length;
+
+        let rendimientoBusqueda = document.getElementById("RMBvor");
+        rendimientoBusqueda.innerHTML = time;
+
+        let distanciaTotal = document.getElementById("KMRvor");
+        distanciaTotal.innerHTML = totalDistance.toFixed(2);
+
+        borrarCiudades(TablaCiudades);
+        for (let i = 0; i < resultEstados.length; i++) {
+          let tr = document.createElement("tr");
+          TablaCiudades.appendChild(tr);
+          let td = document.createElement("td");
+          tr.appendChild(td);
+          td.innerHTML = `<b>${i + 1}.</b>  ${result[i]}`;
+        }
+
+        
+        //drawPolyLine();
+        displayRoute(result);
+      }
+
       sele.selectedIndex = 0;
     }
 

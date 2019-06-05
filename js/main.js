@@ -23,25 +23,4 @@ for (let index = 0; index < Estados.length; index++) {
   }      
 }
 
-capitalesW.Astar("Medellin", "Bogota");
-
-
-let labels = (lista) =>{
-  let inicial = document.getElementById(lista);
-  
-  let option;
-  let texto;
-  for (let i = 0; i < Estados.length; i++) {
-      option = document.createElement("option");
-      option.value = Estados[i].ciudad;
-      texto = document.createTextNode("" + i + " " + Estados[i].ciudad);
-      option.appendChild(texto);
-      inicial.appendChild(option);
-  }
-}
-
-
-
-
-
-
+capitales.Astar("Medellin", "Cartagena");

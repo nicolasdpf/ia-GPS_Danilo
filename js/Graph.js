@@ -181,4 +181,47 @@ class Graph{
         }
         return result;
     }
+
+
+    Astar(inicial, final){
+        let openList = new PriorityQueue();
+        let closeList = [];
+
+        let visited = {};
+
+        let current; 
+
+        let fn, gn = 0, hn;
+
+        openList.enqueue(inicial, 0);
+        visited[inicial] = true;
+
+        while(openList){
+            current = openList.dequeue();
+
+            if(current.val === final){
+                if(!visited[current]){
+                    visited[current] = true;
+                }
+
+                closeList.push(current.val);
+                break;
+            }
+
+            closeList.push(current.val);
+            gn += 1;
+
+            this.dataList[current.val].forEach(vecino=>{
+
+                hn = calculateDistance(vecino, final);
+                fn = gn + hn;
+
+                if(!visited[vecino]){
+                    visited[vecino] = true;
+                    openList.enqueue(vecino, fn);
+                }
+            });
+        }
+        return closeList;
+    }
 }
