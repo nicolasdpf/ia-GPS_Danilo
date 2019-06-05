@@ -142,6 +142,8 @@ class GraphCosteado {
             //this.adjacencyList[current]
         }
         */
+
+        
     }
 
 
